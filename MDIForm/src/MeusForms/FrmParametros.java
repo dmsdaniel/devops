@@ -5,13 +5,12 @@
  */
 package MeusForms;
 
-import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Properties;
+import javax.crypto.SecretKey;
+import utils.AESUtils;
 
 /**
  *
@@ -138,11 +137,16 @@ public class FrmParametros extends javax.swing.JInternalFrame {
         try {
 
             output = new FileOutputStream("config.properties");
-
+            byte[] message =  txtSenha.getText().getBytes();
+            SecretKey secretKey = AESUtils.createKey("password");
+            byte[] encrypted = AESUtils.encrypt(secretKey, message);
             // set the properties value
             prop.setProperty("database", "db1");
             prop.setProperty("dbuser", txtUsuario.getText());
-            prop.setProperty("dbpassword", txtSenha.getText());
+            prop.setProperty("dbpassword", new String(encrypted));
+            System.out.println("original: " + new String(message));
+		System.out.println("encrypted: " + new String(encrypted));
+		System.out.println("decrypted: " + new String(decrypted));
 
             // save properties to project root folder
             prop.store(output, null);
