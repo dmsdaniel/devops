@@ -21,23 +21,15 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuFrames">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Frames"/>
+            <Property name="text" type="java.lang.String" value="Op&#xe7;&#xf5;es"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mnuFrame1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Frame1"/>
+                <Property name="text" type="java.lang.String" value="Par&#xe2;metros"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuFrame1ActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mnuFrame2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Frame2"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuFrame2ActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

@@ -36,7 +36,6 @@ public class MainFrame extends javax.swing.JFrame {
         mnuSair = new javax.swing.JMenuItem();
         mnuFrames = new javax.swing.JMenu();
         mnuFrame1 = new javax.swing.JMenuItem();
-        mnuFrame2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,23 +62,15 @@ public class MainFrame extends javax.swing.JFrame {
 
         JMenuBar.add(mnuArquivo);
 
-        mnuFrames.setText("Frames");
+        mnuFrames.setText("Opções");
 
-        mnuFrame1.setText("Frame1");
+        mnuFrame1.setText("Parâmetros");
         mnuFrame1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuFrame1ActionPerformed(evt);
             }
         });
         mnuFrames.add(mnuFrame1);
-
-        mnuFrame2.setText("Frame2");
-        mnuFrame2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuFrame2ActionPerformed(evt);
-            }
-        });
-        mnuFrames.add(mnuFrame2);
 
         JMenuBar.add(mnuFrames);
 
@@ -103,13 +94,6 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_mnuSairActionPerformed
-
-    private void mnuFrame2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFrame2ActionPerformed
-        // TODO add your handling code here:
-            Frame2 frm = new Frame2();
-            Desktop.add(frm);
-            frm.setVisible(true);
-    }//GEN-LAST:event_mnuFrame2ActionPerformed
 
     private void mnuFrame1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFrame1ActionPerformed
         // TODO add your handling code here:
@@ -158,7 +142,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar JMenuBar;
     private javax.swing.JMenu mnuArquivo;
     private javax.swing.JMenuItem mnuFrame1;
-    private javax.swing.JMenuItem mnuFrame2;
     private javax.swing.JMenu mnuFrames;
     private javax.swing.JMenuItem mnuSair;
     // End of variables declaration//GEN-END:variables

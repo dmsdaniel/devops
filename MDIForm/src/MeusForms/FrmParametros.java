@@ -49,9 +49,17 @@ public class FrmParametros extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         txtSenha = new javax.swing.JPasswordField();
+        jLabel5 = new javax.swing.JLabel();
+        txtCliente = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtUnikey = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtUsrGestor = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtSenhaGestor = new javax.swing.JTextField();
 
         setClosable(true);
-        setTitle("Frame1");
+        setTitle("Parâmetros");
 
         txtIP.setText("txtIP");
 
@@ -61,9 +69,9 @@ public class FrmParametros extends javax.swing.JInternalFrame {
 
         jLabel1.setText("IP Servidor");
 
-        jLabel2.setText("Usuário");
+        jLabel2.setText("Usuário Servidor");
 
-        jLabel3.setText("Senha");
+        jLabel3.setText("Senha Servidor");
 
         jLabel4.setText("Caminho Warewin");
 
@@ -81,18 +89,40 @@ public class FrmParametros extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel5.setText("Cód. Cliente");
+
+        txtCliente.setText("txtCliente");
+
+        jLabel6.setText("Cód. Unikey");
+
+        txtUnikey.setText("txtUnikey");
+
+        jLabel7.setText("Usuário Site Gestor ");
+
+        txtUsrGestor.setText("txtUsrGestor");
+
+        jLabel8.setText("Senha Site Gestor");
+
+        txtSenhaGestor.setText("txtSenhaGestor");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtIP)
                     .addComponent(txtUsuario)
@@ -100,14 +130,18 @@ public class FrmParametros extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
+                    .addComponent(txtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                    .addComponent(txtCliente)
+                    .addComponent(txtUnikey, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtUsrGestor, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtSenhaGestor, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -122,7 +156,23 @@ public class FrmParametros extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSMB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtUnikey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtUsrGestor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSenhaGestor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(23, 23, 23))
         );
@@ -141,13 +191,15 @@ public class FrmParametros extends javax.swing.JInternalFrame {
             SecretKey secretKey = AESUtils.createKey("password");
             byte[] encrypted = AESUtils.encrypt(secretKey, message);
             // set the properties value
+            prop.setProperty("cliente", txtCliente.getText());
+            prop.setProperty("unikey", txtUnikey.getText());
+            prop.setProperty("ip", txtIP.getText());
             prop.setProperty("database", "db1");
             prop.setProperty("dbuser", txtUsuario.getText());
             prop.setProperty("dbpassword", new String(encrypted));
-            System.out.println("original: " + new String(message));
-		System.out.println("encrypted: " + new String(encrypted));
-		System.out.println("decrypted: " + new String(decrypted));
-
+            prop.setProperty("pasta warewin", txtSMB.getText());
+            prop.setProperty("usuario gestor", txtUsrGestor.getText());
+            prop.setProperty("senha gestor", txtSenhaGestor.getText());
             // save properties to project root folder
             prop.store(output, null);
 
@@ -178,9 +230,17 @@ public class FrmParametros extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtIP;
     private javax.swing.JTextField txtSMB;
     private javax.swing.JPasswordField txtSenha;
+    private javax.swing.JTextField txtSenhaGestor;
+    private javax.swing.JTextField txtUnikey;
+    private javax.swing.JTextField txtUsrGestor;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
