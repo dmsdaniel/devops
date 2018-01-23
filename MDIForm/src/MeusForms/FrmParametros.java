@@ -5,9 +5,12 @@
  */
 package MeusForms;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.Properties;
 import javax.crypto.SecretKey;
 import utils.AESUtils;
@@ -17,7 +20,7 @@ import utils.AESUtils;
  * @author daniel
  */
 public class FrmParametros extends javax.swing.JInternalFrame {
-    
+
     private void ExitFrame() {
         setVisible(false);
         dispose();
@@ -28,6 +31,45 @@ public class FrmParametros extends javax.swing.JInternalFrame {
      */
     public FrmParametros() {
         initComponents();
+        CarregaParametros();
+
+    }
+
+    public void CarregaParametros() {
+
+        Properties prop = new Properties();
+        InputStream input = null;
+
+        try {
+
+            input = new FileInputStream("config.properties");
+
+            // load a properties file
+            prop.load(input);
+
+	    // get the property value and print it out
+            txtSenhaServidor.setText(prop.getProperty("senha servidor"));
+            txtCliente.setText(prop.getProperty("cliente"));
+            txtSenhaGestor.setText(prop.getProperty("senha gestor"));
+            txtUnikey.setText(prop.getProperty("unikey"));
+            txtIP.setText(prop.getProperty("ip"));
+            txtUsuario.setText(prop.getProperty("dbuser"));
+            txtSMB.setText(prop.getProperty("pasta warewin"));
+            txtUsrGestor.setText(prop.getProperty("usuario gestor"));
+            
+            
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
     }
 
@@ -48,7 +90,6 @@ public class FrmParametros extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        txtSenha = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
         txtCliente = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -57,6 +98,7 @@ public class FrmParametros extends javax.swing.JInternalFrame {
         txtUsrGestor = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtSenhaGestor = new javax.swing.JTextField();
+        txtSenhaServidor = new javax.swing.JPasswordField();
 
         setClosable(true);
         setTitle("Parâmetros");
@@ -82,13 +124,6 @@ public class FrmParametros extends javax.swing.JInternalFrame {
             }
         });
 
-        txtSenha.setText("jPasswordField1");
-        txtSenha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSenhaActionPerformed(evt);
-            }
-        });
-
         jLabel5.setText("Cód. Cliente");
 
         txtCliente.setText("txtCliente");
@@ -105,37 +140,37 @@ public class FrmParametros extends javax.swing.JInternalFrame {
 
         txtSenhaGestor.setText("txtSenhaGestor");
 
+        txtSenhaServidor.setText("jPasswordField1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtIP)
                     .addComponent(txtUsuario)
                     .addComponent(txtSMB)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
                     .addComponent(txtCliente)
                     .addComponent(txtUnikey, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtUsrGestor, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtSenhaGestor, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
+                    .addComponent(txtSenhaGestor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                    .addComponent(txtSenhaServidor))
+                .addContainerGap(27, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(219, 219, 219)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,7 +186,7 @@ public class FrmParametros extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSenhaServidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSMB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -172,9 +207,9 @@ public class FrmParametros extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSenhaGestor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(23, 23, 23))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -187,16 +222,18 @@ public class FrmParametros extends javax.swing.JInternalFrame {
         try {
 
             output = new FileOutputStream("config.properties");
-            byte[] message =  txtSenha.getText().getBytes();
+            byte[] message = txtSenhaServidor.getText().getBytes();
             SecretKey secretKey = AESUtils.createKey("password");
             byte[] encrypted = AESUtils.encrypt(secretKey, message);
+
             // set the properties value
             prop.setProperty("cliente", txtCliente.getText());
             prop.setProperty("unikey", txtUnikey.getText());
             prop.setProperty("ip", txtIP.getText());
             prop.setProperty("database", "db1");
             prop.setProperty("dbuser", txtUsuario.getText());
-            prop.setProperty("dbpassword", new String(encrypted));
+            //prop.setProperty("senha servidor", new String(encrypted));
+            prop.setProperty("senha servidor", txtSenhaServidor.getText());
             prop.setProperty("pasta warewin", txtSMB.getText());
             prop.setProperty("usuario gestor", txtUsrGestor.getText());
             prop.setProperty("senha gestor", txtSenhaGestor.getText());
@@ -215,13 +252,9 @@ public class FrmParametros extends javax.swing.JInternalFrame {
             }
 
         }
-         ExitFrame();
+        ExitFrame();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSenhaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -237,8 +270,8 @@ public class FrmParametros extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtIP;
     private javax.swing.JTextField txtSMB;
-    private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtSenhaGestor;
+    private javax.swing.JPasswordField txtSenhaServidor;
     private javax.swing.JTextField txtUnikey;
     private javax.swing.JTextField txtUsrGestor;
     private javax.swing.JTextField txtUsuario;

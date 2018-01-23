@@ -7,6 +7,13 @@ package mdiform;
 
 import MeusForms.FrmParametros;
 import MeusForms.Frame2;
+import MeusForms.Parametros;
+import com.jcraft.exemplos.Shell;
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.Session;
+import com.jcraft.jsch.UserInfo;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,6 +43,8 @@ public class MainFrame extends javax.swing.JFrame {
         mnuSair = new javax.swing.JMenuItem();
         mnuFrames = new javax.swing.JMenu();
         mnuFrame1 = new javax.swing.JMenuItem();
+        mnuTarefas = new javax.swing.JMenu();
+        mnuBancoDados = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,11 +52,11 @@ public class MainFrame extends javax.swing.JFrame {
         Desktop.setLayout(DesktopLayout);
         DesktopLayout.setHorizontalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 667, Short.MAX_VALUE)
         );
         DesktopLayout.setVerticalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
+            .addGap(0, 472, Short.MAX_VALUE)
         );
 
         mnuArquivo.setText("Arquivo");
@@ -73,6 +82,18 @@ public class MainFrame extends javax.swing.JFrame {
         mnuFrames.add(mnuFrame1);
 
         JMenuBar.add(mnuFrames);
+
+        mnuTarefas.setText("Tarefas");
+
+        mnuBancoDados.setText("Implantação Banco de Dados");
+        mnuBancoDados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuBancoDadosActionPerformed(evt);
+            }
+        });
+        mnuTarefas.add(mnuBancoDados);
+
+        JMenuBar.add(mnuTarefas);
 
         setJMenuBar(JMenuBar);
 
@@ -101,6 +122,87 @@ public class MainFrame extends javax.swing.JFrame {
             Desktop.add(frm);
             frm.setVisible(true);
     }//GEN-LAST:event_mnuFrame1ActionPerformed
+
+    private void mnuBancoDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBancoDadosActionPerformed
+
+try{
+      JSch jsch=new JSch();
+        Parametros parametros = new Parametros();
+        parametros.buscaParametros();
+      //jsch.setKnownHosts("/home/foo/.ssh/known_hosts");
+
+
+      Session session=jsch.getSession(parametros.getUsuario(), parametros.getIp(), 22);
+
+      
+      session.setPassword(parametros.getSenhaservidor());
+
+      UserInfo ui = new Shell.MyUserInfo(){
+        public void showMessage(String message){
+          JOptionPane.showMessageDialog(null, message);
+        }
+        public boolean promptYesNo(String message){
+          Object[] options={ "yes", "no" };
+          int foo=JOptionPane.showOptionDialog(null, 
+                                               message,
+                                               "Warning", 
+                                               JOptionPane.DEFAULT_OPTION, 
+                                               JOptionPane.WARNING_MESSAGE,
+                                               null, options, options[0]);
+          return foo==0;
+        }
+
+        // If password is not given before the invocation of Session#connect(),
+        // implement also following methods,
+        //   * UserInfo#getPassword(),
+        //   * UserInfo#promptPassword(String message) and
+        //   * UIKeyboardInteractive#promptKeyboardInteractive()
+
+      };
+
+      session.setUserInfo(ui);
+
+      // It must not be recommended, but if you want to skip host-key check,
+      // invoke following,
+      // session.setConfig("StrictHostKeyChecking", "no");
+
+      //session.connect();
+      session.connect(30000);   // making a connection with timeout.
+
+      Channel channel=session.openChannel("shell");
+
+      // Enable agent-forwarding.
+      //((ChannelShell)channel).setAgentForwarding(true);
+
+      channel.setInputStream(System.in);
+      /*
+      // a hack for MS-DOS prompt on Windows.
+      channel.setInputStream(new FilterInputStream(System.in){
+          public int read(byte[] b, int off, int len)throws IOException{
+            return in.read(b, off, (len>1024?1024:len));
+          }
+        });
+       */
+
+      channel.setOutputStream(System.out);
+
+      /*
+      // Choose the pty-type "vt102".
+      ((ChannelShell)channel).setPtyType("vt102");
+      */
+
+      /*
+      // Set environment variable "LANG" as "ja_JP.eucJP".
+      ((ChannelShell)channel).setEnv("LANG", "ja_JP.eucJP");
+      */
+
+      //channel.connect();
+      channel.connect(3*1000);
+    }
+    catch(Exception e){
+      System.out.println(e);
+    }        
+    }//GEN-LAST:event_mnuBancoDadosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -141,8 +243,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JDesktopPane Desktop;
     private javax.swing.JMenuBar JMenuBar;
     private javax.swing.JMenu mnuArquivo;
+    private javax.swing.JMenuItem mnuBancoDados;
     private javax.swing.JMenuItem mnuFrame1;
     private javax.swing.JMenu mnuFrames;
     private javax.swing.JMenuItem mnuSair;
+    private javax.swing.JMenu mnuTarefas;
     // End of variables declaration//GEN-END:variables
 }
