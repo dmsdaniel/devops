@@ -5,8 +5,15 @@
         <group>
             <file>file:/home/daniel/NetBeansProjects/devops/MDIForm/src/MeusForms/FrmParametros.java</file>
             <file>file:/home/daniel/NetBeansProjects/devops/MDIForm/src/mdiform/CryptoUtils.java</file>
+            <file>file:/home/daniel/NetBeansProjects/devops/MDIForm/src/com/jcraft/jsch/Session.java</file>
+            <file>file:/home/daniel/NetBeansProjects/devops/MDIForm/src/MeusForms/TextAreaLogProgram.java</file>
+            <file>file:/home/daniel/NetBeansProjects/devops/MDIForm/src/MeusForms/CapturePane.java</file>
+            <file>file:/home/daniel/NetBeansProjects/devops/MDIForm/src/MeusForms/StreamCapturer.java</file>
             <file>file:/home/daniel/NetBeansProjects/devops/MDIForm/src/mdiform/AppCarregaParametros.java</file>
             <file>file:/home/daniel/NetBeansProjects/devops/MDIForm/src/mdiform/MainFrame.java</file>
+            <file>file:/home/daniel/NetBeansProjects/devops/MDIForm/src/MeusForms/Consumer.java</file>
+            <file>file:/home/daniel/NetBeansProjects/devops/MDIForm/src/MeusForms/TestRedirect.java</file>
+            <file>file:/home/daniel/NetBeansProjects/devops/MDIForm/src/MeusForms/CustomOutputStream.java</file>
         </group>
     </open-files>
 </project-private>
