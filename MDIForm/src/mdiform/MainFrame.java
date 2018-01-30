@@ -5,14 +5,22 @@
  */
 package mdiform;
 
+import MeusForms.CapturePane;
+import MeusForms.FrameExec;
 import MeusForms.FrmParametros;
-import MeusForms.Frame2;
 import MeusForms.Parametros;
+import MeusForms.StreamCapturer;
 import com.jcraft.exemplos.Shell;
 import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.UserInfo;
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.io.InputStream;
+import java.io.PrintStream;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -37,6 +45,7 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem2 = new javax.swing.JMenuItem();
         Desktop = new javax.swing.JDesktopPane();
         JMenuBar = new javax.swing.JMenuBar();
         mnuArquivo = new javax.swing.JMenu();
@@ -45,6 +54,10 @@ public class MainFrame extends javax.swing.JFrame {
         mnuFrame1 = new javax.swing.JMenuItem();
         mnuTarefas = new javax.swing.JMenu();
         mnuBancoDados = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+
+        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,11 +65,11 @@ public class MainFrame extends javax.swing.JFrame {
         Desktop.setLayout(DesktopLayout);
         DesktopLayout.setHorizontalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 667, Short.MAX_VALUE)
+            .addGap(0, 1034, Short.MAX_VALUE)
         );
         DesktopLayout.setVerticalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
+            .addGap(0, 699, Short.MAX_VALUE)
         );
 
         mnuArquivo.setText("Arquivo");
@@ -85,13 +98,19 @@ public class MainFrame extends javax.swing.JFrame {
 
         mnuTarefas.setText("Tarefas");
 
-        mnuBancoDados.setText("Implantação Banco de Dados");
+        mnuBancoDados.setText("Instalação Postgresql");
         mnuBancoDados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuBancoDadosActionPerformed(evt);
             }
         });
         mnuTarefas.add(mnuBancoDados);
+
+        jMenuItem1.setText("Instalação Indicadores");
+        mnuTarefas.add(jMenuItem1);
+
+        jMenuItem3.setText("Instalação Warecloud");
+        mnuTarefas.add(jMenuItem3);
 
         JMenuBar.add(mnuTarefas);
 
@@ -101,11 +120,15 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Desktop)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(Desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Desktop)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(Desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -118,90 +141,129 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void mnuFrame1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFrame1ActionPerformed
         // TODO add your handling code here:
-            FrmParametros frm = new FrmParametros();
-            Desktop.add(frm);
-            frm.setVisible(true);
+        FrmParametros frm = new FrmParametros();
+        Desktop.add(frm);
+        frm.setVisible(true);
     }//GEN-LAST:event_mnuFrame1ActionPerformed
 
     private void mnuBancoDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBancoDadosActionPerformed
+        // TODO add your handling code here:
+        FrameExec frame = new FrameExec();
+        Desktop.add(frame);
+        try {
+            JSch jsch = new JSch();
+            Parametros parametros = new Parametros();
+            parametros.buscaParametros();
+            jsch.setKnownHosts("/home/"+parametros.getUsuario()+"/.ssh/known_hosts");
+            
+            Session session = jsch.getSession(parametros.getUsuario(), parametros.getIp(), 22);
 
-try{
-      JSch jsch=new JSch();
-        Parametros parametros = new Parametros();
-        parametros.buscaParametros();
-      //jsch.setKnownHosts("/home/foo/.ssh/known_hosts");
+            session.setPassword(parametros.getSenhaservidor());
 
+            UserInfo ui = new Shell.MyUserInfo() {
+                public void showMessage(String message) {
+                    JOptionPane.showMessageDialog(null, message);
+                }
 
-      Session session=jsch.getSession(parametros.getUsuario(), parametros.getIp(), 22);
+                public boolean promptYesNo(String message) {
+                    Object[] options = {"yes", "no"};
+                    int foo = JOptionPane.showOptionDialog(null,
+                            message,
+                            "Warning",
+                            JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.WARNING_MESSAGE,
+                            null, options, options[0]);
+                    return foo == 0;
+                }
 
-      
-      session.setPassword(parametros.getSenhaservidor());
+                // If password is not given before the invocation of Session#connect(),
+                // implement also following methods,
+                //   * UserInfo#getPassword(),
+                //   * UserInfo#promptPassword(String message) and
+                //   * UIKeyboardInteractive#promptKeyboardInteractive()
+            };
 
-      UserInfo ui = new Shell.MyUserInfo(){
-        public void showMessage(String message){
-          JOptionPane.showMessageDialog(null, message);
+            session.setUserInfo(ui);
+
+            // It must not be recommended, but if you want to skip host-key check,
+            // invoke following,
+            // session.setConfig("StrictHostKeyChecking", "no");
+            //session.connect();
+            session.connect(30000);   // making a connection with timeout.
+
+            Channel channel = session.openChannel("exec");
+            ((ChannelExec) channel).setCommand("ls -lh");
+
+            // Enable agent-forwarding.
+            //((ChannelShell)channel).setAgentForwarding(true);
+            channel.setInputStream(null);
+            /*
+             // a hack for MS-DOS prompt on Windows.
+             channel.setInputStream(new FilterInputStream(System.in){
+             public int read(byte[] b, int off, int len)throws IOException{
+             return in.read(b, off, (len>1024?1024:len));
+             }
+             });
+             */
+            Font font = new Font("courier new", Font.BOLD,15);
+            CapturePane capturePane = new CapturePane();
+            capturePane.setFont(font);
+            /* JFrame frame = new JFrame();
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setLayout(new BorderLayout());
+            frame.add(capturePane);
+            frame.setSize(200, 200);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true); */
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setLayout(new BorderLayout());
+            frame.add(capturePane);
+            frame.setSize(800, 600);
+            frame.setVisible(true); 
+
+            PrintStream ps = System.out;
+            System.out.println(System.getProperty("os.name"));
+            System.setOut(new PrintStream(new StreamCapturer("Shell>", capturePane, ps)));
+            channel.setOutputStream(System.out);
+
+            /*
+             // Choose the pty-type "vt102".
+             ((ChannelShell)channel).setPtyType("vt102");
+             */
+
+            /*
+             // Set environment variable "LANG" as "ja_JP.eucJP".
+             ((ChannelShell)channel).setEnv("LANG", "ja_JP.eucJP");
+             */
+            //channel.connect();
+            InputStream in=channel.getInputStream();
+            channel.connect();
+            byte[] tmp = new byte[1024];
+            while (true) {
+                while (in.available() > 0) {
+                    int i = in.read(tmp, 0, 1024);
+                    if (i < 0) {
+                        break;
+                    }
+                    System.out.print(new String(tmp, 0, i));
+                }
+                if (channel.isClosed()) {
+                    if (in.available() > 0) {
+                        continue;
+                    }
+                    System.out.println("exit-status: " + channel.getExitStatus());
+                    break;
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception ee) {
+                }
+            }
+            channel.disconnect();
+            session.disconnect();
+        } catch (Exception e) {
+            System.out.println(e);
         }
-        public boolean promptYesNo(String message){
-          Object[] options={ "yes", "no" };
-          int foo=JOptionPane.showOptionDialog(null, 
-                                               message,
-                                               "Warning", 
-                                               JOptionPane.DEFAULT_OPTION, 
-                                               JOptionPane.WARNING_MESSAGE,
-                                               null, options, options[0]);
-          return foo==0;
-        }
-
-        // If password is not given before the invocation of Session#connect(),
-        // implement also following methods,
-        //   * UserInfo#getPassword(),
-        //   * UserInfo#promptPassword(String message) and
-        //   * UIKeyboardInteractive#promptKeyboardInteractive()
-
-      };
-
-      session.setUserInfo(ui);
-
-      // It must not be recommended, but if you want to skip host-key check,
-      // invoke following,
-      // session.setConfig("StrictHostKeyChecking", "no");
-
-      //session.connect();
-      session.connect(30000);   // making a connection with timeout.
-
-      Channel channel=session.openChannel("shell");
-
-      // Enable agent-forwarding.
-      //((ChannelShell)channel).setAgentForwarding(true);
-
-      channel.setInputStream(System.in);
-      /*
-      // a hack for MS-DOS prompt on Windows.
-      channel.setInputStream(new FilterInputStream(System.in){
-          public int read(byte[] b, int off, int len)throws IOException{
-            return in.read(b, off, (len>1024?1024:len));
-          }
-        });
-       */
-
-      channel.setOutputStream(System.out);
-
-      /*
-      // Choose the pty-type "vt102".
-      ((ChannelShell)channel).setPtyType("vt102");
-      */
-
-      /*
-      // Set environment variable "LANG" as "ja_JP.eucJP".
-      ((ChannelShell)channel).setEnv("LANG", "ja_JP.eucJP");
-      */
-
-      //channel.connect();
-      channel.connect(3*1000);
-    }
-    catch(Exception e){
-      System.out.println(e);
-    }        
     }//GEN-LAST:event_mnuBancoDadosActionPerformed
 
     /**
@@ -242,6 +304,9 @@ try{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Desktop;
     private javax.swing.JMenuBar JMenuBar;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenu mnuArquivo;
     private javax.swing.JMenuItem mnuBancoDados;
     private javax.swing.JMenuItem mnuFrame1;
